@@ -5,10 +5,11 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.lang.invoke.SwitchPoint;
 
 public class TankFrame extends Frame {
 
-    int x = 200, y = 200;
+    Tank myTank = new Tank(200,200,Dir.DOWN);
 
     public TankFrame(){
         setSize(800,600);
@@ -28,9 +29,7 @@ public class TankFrame extends Frame {
     }
     @Override
     public void paint(Graphics g){
-        g.fillRect(x,y,50,50);
-        //x += 10;
-        //y += 10;
+        myTank.paint(g);
     }
 
     class MyKeyListener extends KeyAdapter{
@@ -60,6 +59,7 @@ public class TankFrame extends Frame {
                 default:
                     break;
             }
+            setMainTankDir();
 
         }
 
@@ -82,6 +82,14 @@ public class TankFrame extends Frame {
                 default:
                     break;
             }
+            setMainTankDir();
+        }
+
+        private void setMainTankDir() {
+            if(bL) myTank.setDir(Dir.LEFT);
+            if(bU) myTank.setDir(Dir.UP);;
+            if(bR) myTank.setDir(Dir.RIGHT);;
+            if(bD) myTank.setDir(Dir.DOWN);;
         }
     }
 }

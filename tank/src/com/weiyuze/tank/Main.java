@@ -9,7 +9,7 @@ public class Main {
         TankFrame Tf = new TankFrame();
 
         while (true){
-            Thread.sleep(36);
+            Thread.sleep(50);
             Tf.repaint();
         }
     }
