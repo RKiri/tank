@@ -7,16 +7,17 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.lang.invoke.SwitchPoint;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class TankFrame extends Frame {
 
-    Tank myTank = new Tank(200,200,Dir.DOWN,this);
+    Tank myTank = new Tank(200, 200, Dir.DOWN, this);
     List<Bullet> bullets = new ArrayList<>();
-    static final int GAME_WIDTH = 800,GAME_HEIGHT=600;
+    static final int GAME_WIDTH = 800, GAME_HEIGHT = 600;
 
-    public TankFrame(){
-        setSize(GAME_WIDTH,GAME_HEIGHT);
+    public TankFrame() {
+        setSize(GAME_WIDTH, GAME_HEIGHT);
         setResizable(false);
         setVisible(true);
         setTitle("Tank war");
@@ -31,10 +32,12 @@ public class TankFrame extends Frame {
             }
         });
     }
+
     Image offScreenImage = null;
+
     @Override
     public void update(Graphics g) {
-        if(offScreenImage == null) {
+        if (offScreenImage == null) {
             offScreenImage = this.createImage(GAME_WIDTH, GAME_HEIGHT);
         }
         Graphics gOffScreen = offScreenImage.getGraphics();
@@ -47,18 +50,28 @@ public class TankFrame extends Frame {
     }
 
     @Override
-    public void paint(Graphics g){
+    public void paint(Graphics g) {
         Color c = g.getColor();
         g.setColor(Color.white);
-        g.drawString("子弹的数量"+bullets.size(),10,60);
+        g.drawString("子弹的数量" + bullets.size(), 10, 60);
         g.setColor(c);
         myTank.paint(g);
-        for(int i = 0; i<bullets.size(); i++){
+        for (int i = 0; i < bullets.size(); i++) {
             bullets.get(i).paint(g);
         }
+
+//        for(Iterator<Bullet> it = bullets.iterator();it.hasNext();){
+//            Bullet b = it.next();
+//            if(!b.live)it.remove();
+//        }
+
+//        for(Bullet b : bullets){
+//            b.paint(g);
+//        }
     }
 
-    class MyKeyListener extends KeyAdapter{
+
+    class MyKeyListener extends KeyAdapter {
 
         boolean bL = false;
         boolean bR = false;
@@ -69,7 +82,7 @@ public class TankFrame extends Frame {
         public void keyPressed(KeyEvent e) {
             //System.out.println("key pressed");
             int key = e.getKeyCode();
-            switch (key){
+            switch (key) {
                 case KeyEvent.VK_LEFT:
                     bL = true;
                     break;
@@ -86,13 +99,12 @@ public class TankFrame extends Frame {
                     break;
             }
             setMainTankDir();
-
         }
 
         @Override
         public void keyReleased(KeyEvent e) {
             int key = e.getKeyCode();
-            switch (key){
+            switch (key) {
                 case KeyEvent.VK_LEFT:
                     bL = false;
                     break;
@@ -115,13 +127,13 @@ public class TankFrame extends Frame {
         }
 
         private void setMainTankDir() {
-            if(!bL&!bU&!bR&!bD) myTank.setMoving(false);
+            if (!bL & !bU & !bR & !bD) myTank.setMoving(false);
             else {
                 myTank.setMoving(true);
-                if(bL) myTank.setDir(Dir.LEFT);
-                if(bU) myTank.setDir(Dir.UP);;
-                if(bR) myTank.setDir(Dir.RIGHT);;
-                if(bD) myTank.setDir(Dir.DOWN);;
+                if (bL) myTank.setDir(Dir.LEFT);
+                if (bU) myTank.setDir(Dir.UP);
+                if (bR) myTank.setDir(Dir.RIGHT);
+                if (bD) myTank.setDir(Dir.DOWN);
             }
         }
     }
