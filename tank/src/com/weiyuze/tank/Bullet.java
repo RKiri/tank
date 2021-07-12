@@ -5,7 +5,7 @@ import java.awt.*;
 public class Bullet {
     private int x, y;
     private Dir dir;
-    private static final int speed = 8;
+    private static final int speed = 6;
     TankFrame tf = null;
     private boolean living = true;
     private Group group = Group.BAD;

@@ -6,14 +6,14 @@ import java.util.Random;
 public class Tank {
     private int x, y;
     private Dir dir = Dir.DOWN;
-    private static final int speed = 1;
+    private static final int speed = 2;
     private TankFrame tf;
     private boolean moving = true;
     private boolean living = true;
     private Random random = new Random();
     private Group group = Group.BAD;
-    public static int WIDTH = ResourceMgr.tankD.getWidth();
-    public static int HEIGHT = ResourceMgr.tankD.getHeight();
+    public static int WIDTH = ResourceMgr.tankU.getWidth();
+    public static int HEIGHT = ResourceMgr.tankU.getHeight();
 
     public Tank(int x, int y, Dir dir, Group group,TankFrame tf) {
         this.x = x;
@@ -65,6 +65,8 @@ public class Tank {
         int bX = this.x + Tank.WIDTH / 2 - Bullet.WIDTH / 2;
         int bY = this.y + Tank.HEIGHT / 2 - Bullet.HEIGHT / 2;
         tf.bullets.add(new Bullet(bX, bY, this.dir, this.group, this.tf));
+
+        if(this.group==Group.GOOD) new Thread(()->new Audio("audio/tank_fire.wav").play()).start();
     }
 
     public void die() {
