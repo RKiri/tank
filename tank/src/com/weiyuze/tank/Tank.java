@@ -15,7 +15,7 @@ public class Tank {
     public static int WIDTH = ResourceMgr.goodTankU.getWidth();
     public static int HEIGHT = ResourceMgr.goodTankU.getHeight();
     Rectangle rect = new Rectangle();
-    FireStrategy fs = new DefaultFireStrategy();
+    FireStrategy fs;
 
     public Tank(int x, int y, Dir dir, Group group, TankFrame tf) {
         this.x = x;
@@ -28,6 +28,9 @@ public class Tank {
         rect.y = this.y;
         rect.width = WIDTH;
         rect.height = HEIGHT;
+
+        if(group==Group.GOOD) fs = new FourDefaultFireStrategy();
+        else fs = new DefaultFireStrategy();
     }
 
     public void paint(Graphics g) {
