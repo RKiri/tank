@@ -1,6 +1,7 @@
 package com.weiyuze.tank;
 
 import java.awt.*;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Random;
 
 public class Tank {
@@ -32,15 +33,13 @@ public class Tank {
         if(group==Group.GOOD){
             String goodFSName = (String) PropertyMgr.get("goodFS");
             try {
-                fs = (FireStrategy) Class.forName(goodFSName).newInstance();
-            } catch (InstantiationException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            } catch (ClassNotFoundException e) {
+                fs = (FireStrategy) Class.forName(goodFSName).getDeclaredConstructor().newInstance();
+            } catch (Exception e) {
                 e.printStackTrace();
             }
-        }else fs = new DefaultFireStrategy();
+        }else{
+            fs = new DefaultFireStrategy();
+        }
     }
 
     public void paint(Graphics g) {
