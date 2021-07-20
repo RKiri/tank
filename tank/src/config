@@ -4,3 +4,8 @@ tankSpeed=5
 bulletSpeed=10
 gameWidth=1080
 gameHeight=720
+#fireStrategy
+goodFS=com.weiyuze.tank.FourDefaultFireStrategy
+badFS=com.weiyuze.tank.DefaultFireStrategy
+
+

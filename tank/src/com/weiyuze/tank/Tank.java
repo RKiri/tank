@@ -29,8 +29,18 @@ public class Tank {
         rect.width = WIDTH;
         rect.height = HEIGHT;
 
-        if(group==Group.GOOD) fs = new FourDefaultFireStrategy();
-        else fs = new DefaultFireStrategy();
+        if(group==Group.GOOD){
+            String goodFSName = (String) PropertyMgr.get("goodFS");
+            try {
+                fs = (FireStrategy) Class.forName(goodFSName).newInstance();
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        }else fs = new DefaultFireStrategy();
     }
 
     public void paint(Graphics g) {
