@@ -1,9 +1,6 @@
 package com.weiyuze.tank;
 
-import com.weiyuze.tank.abstractFactory.BaseExplode;
-import com.weiyuze.tank.abstractFactory.DefaultFactory;
-import com.weiyuze.tank.abstractFactory.GameFactory;
-import com.weiyuze.tank.abstractFactory.RectFactory;
+import com.weiyuze.tank.abstractFactory.*;
 
 import java.awt.*;
 import java.awt.event.KeyAdapter;
@@ -17,14 +14,14 @@ import java.util.List;
 public class TankFrame extends Frame {
 
     Tank myTank = new Tank(200, 900, Dir.UP, Group.GOOD, this);
-    public List<Bullet> bullets = new ArrayList<>();
+    public List<BaseBullet> bullets = new ArrayList<>();
     public List<Tank> tanks = new ArrayList<>();
     public List<BaseExplode> explodes = new ArrayList<>();
 
     //public GameFactory gf = new DefaultFactory();
     public GameFactory gf = new RectFactory();
 
-    static final int GAME_WIDTH = 1080, GAME_HEIGHT = 960;
+    public static final int GAME_WIDTH = 1080, GAME_HEIGHT = 960;
 
     public TankFrame() {
         setSize(GAME_WIDTH, GAME_HEIGHT);

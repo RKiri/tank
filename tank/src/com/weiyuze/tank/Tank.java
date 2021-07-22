@@ -17,7 +17,7 @@ public class Tank extends BaseTank {
     Group group = Group.BAD;
     public static int WIDTH = ResourceMgr.goodTankU.getWidth();
     public static int HEIGHT = ResourceMgr.goodTankU.getHeight();
-    Rectangle rect = new Rectangle();
+    public Rectangle rect = new Rectangle();
     FireStrategy fs;
 
     public Tank(int x, int y, Dir dir, Group group, TankFrame tf) {
