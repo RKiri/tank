@@ -1,8 +1,10 @@
 package com.weiyuze.tank;
 
+import com.weiyuze.tank.abstractFactory.BaseBullet;
+
 import java.awt.*;
 
-public class Bullet {
+public class Bullet extends BaseBullet {
     private int x, y;
     private Dir dir;
     private static final int speed = 6;
@@ -80,7 +82,7 @@ public class Bullet {
             this.die();
             int eX = tank.getX() + Tank.WIDTH / 2 - Explode.WIDTH / 2;
             int eY = tank.getY() + Tank.HEIGHT / 2 - Explode.HEIGHT / 2;
-            tf.explodes.add(new Explode(eX, eY, tf));
+            tf.explodes.add(tf.gf.createExplode(eX, eY, tf));
         }
     }
 

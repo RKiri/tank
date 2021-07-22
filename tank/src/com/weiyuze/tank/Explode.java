@@ -1,8 +1,10 @@
 package com.weiyuze.tank;
 
+import com.weiyuze.tank.abstractFactory.BaseExplode;
+
 import java.awt.*;
 
-public class Explode {
+public class Explode extends BaseExplode {
     private int x, y;
     //private boolean living = true;
     public static int WIDTH = ResourceMgr.explodes[0].getWidth();
