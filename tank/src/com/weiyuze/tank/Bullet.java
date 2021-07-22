@@ -1,6 +1,7 @@
 package com.weiyuze.tank;
 
 import com.weiyuze.tank.abstractFactory.BaseBullet;
+import com.weiyuze.tank.abstractFactory.BaseTank;
 
 import java.awt.*;
 
@@ -74,8 +75,8 @@ public class Bullet extends BaseBullet {
         if (x < 0 || y < 0 || x > tf.GAME_WIDTH || y > tf.GAME_HEIGHT) living = false;
     }
 
-    public void collideWith(Tank tank) {
-        if (tank.getGroup() == this.group) return;
+    public void collideWith(BaseTank tank) {
+        if (tank.group == this.group) return;
 
         if (rect.intersects(tank.rect)) {
             tank.die();

@@ -15,11 +15,11 @@ public class TankFrame extends Frame {
 
     Tank myTank = new Tank(200, 900, Dir.UP, Group.GOOD, this);
     public List<BaseBullet> bullets = new ArrayList<>();
-    public List<Tank> tanks = new ArrayList<>();
+    public List<BaseTank> tanks = new ArrayList<>();
     public List<BaseExplode> explodes = new ArrayList<>();
 
-    //public GameFactory gf = new DefaultFactory();
-    public GameFactory gf = new RectFactory();
+    public GameFactory gf = new DefaultFactory();
+    //public GameFactory gf = new RectFactory();
 
     public static final int GAME_WIDTH = 1080, GAME_HEIGHT = 960;
 
