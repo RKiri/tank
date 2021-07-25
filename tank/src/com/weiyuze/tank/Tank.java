@@ -7,7 +7,7 @@ public class Tank {
     private int x, y;
     private Dir dir = Dir.DOWN;
     private static final int speed = 2;
-    private TankFrame tf;
+    GameModel gm;
     private boolean moving = true;
     private boolean living = true;
     private Random random = new Random();
@@ -16,12 +16,12 @@ public class Tank {
     public static int HEIGHT = ResourceMgr.goodTankU.getHeight();
     Rectangle rect = new Rectangle();
 
-    public Tank(int x, int y, Dir dir, Group group, TankFrame tf) {
+    public Tank(int x, int y, Dir dir, Group group, GameModel gm) {
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.group = group;
-        this.tf = tf;
+        this.gm = gm;
 
         rect.x = this.x;
         rect.y = this.y;
@@ -30,7 +30,7 @@ public class Tank {
     }
 
     public void paint(Graphics g) {
-        if (!living) tf.tanks.remove(this);
+        if (!living) gm.tanks.remove(this);
         switch (dir) {
             case LEFT:
                 g.drawImage(this.group == Group.GOOD ? ResourceMgr.goodTankL : ResourceMgr.badTankL, x, y, null);
@@ -90,7 +90,7 @@ public class Tank {
     public void fire() {
         int bX = this.x + Tank.WIDTH / 2 - Bullet.WIDTH / 2;
         int bY = this.y + Tank.HEIGHT / 2 - Bullet.HEIGHT / 2;
-        tf.bullets.add(new Bullet(bX, bY, this.dir, this.group, this.tf));
+        gm.bullets.add(new Bullet(bX, bY, this.dir, this.group, this.gm));
 
         if (this.group == Group.GOOD) new Thread(() -> new Audio("audio/tank_fire.wav").play()).start();
     }
