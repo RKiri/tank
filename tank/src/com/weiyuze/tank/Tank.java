@@ -3,11 +3,12 @@ package com.weiyuze.tank;
 import java.awt.*;
 import java.util.Random;
 
-public class Tank {
+public class Tank extends GameObject {
     private int x, y;
-    private Dir dir = Dir.DOWN;
+    //int oldX,oldY;
+    public Dir dir = Dir.DOWN;
     private static final int speed = 2;
-    GameModel gm;
+    public GameModel gm;
     private boolean moving = true;
     private boolean living = true;
     private Random random = new Random();
@@ -30,7 +31,7 @@ public class Tank {
     }
 
     public void paint(Graphics g) {
-        if (!living) gm.tanks.remove(this);
+        if (!living) gm.remove(this);
         switch (dir) {
             case LEFT:
                 g.drawImage(this.group == Group.GOOD ? ResourceMgr.goodTankL : ResourceMgr.badTankL, x, y, null);
@@ -90,9 +91,13 @@ public class Tank {
     public void fire() {
         int bX = this.x + Tank.WIDTH / 2 - Bullet.WIDTH / 2;
         int bY = this.y + Tank.HEIGHT / 2 - Bullet.HEIGHT / 2;
-        gm.bullets.add(new Bullet(bX, bY, this.dir, this.group, this.gm));
+        gm.add(new Bullet(bX, bY, this.dir, this.group, this.gm));
 
         if (this.group == Group.GOOD) new Thread(() -> new Audio("audio/tank_fire.wav").play()).start();
+    }
+
+    public void stop() {
+        moving = false;
     }
 
     public void die() {
@@ -137,5 +142,9 @@ public class Tank {
 
     public void setDir(Dir dir) {
         this.dir = dir;
+    }
+
+    public Rectangle getRect() {
+        return rect;
     }
 }

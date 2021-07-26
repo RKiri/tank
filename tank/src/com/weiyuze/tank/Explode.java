@@ -2,7 +2,7 @@ package com.weiyuze.tank;
 
 import java.awt.*;
 
-public class Explode {
+public class Explode extends GameObject{
     private int x, y;
     //private boolean living = true;
     public static int WIDTH = ResourceMgr.explodes[0].getWidth();
@@ -23,7 +23,7 @@ public class Explode {
         g.drawImage(ResourceMgr.explodes[step++], x, y, null);
 
         if (step >= ResourceMgr.explodes.length)
-            gm.explodes.remove(this);
+            gm.remove(this);
     }
 
 }
