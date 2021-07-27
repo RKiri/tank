@@ -7,28 +7,47 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GameModel {
-    Tank myTank = new Tank(200, 900, Dir.UP, Group.GOOD, this);
+    private static final GameModel INSTANCE = new GameModel();
+
 //    List<Bullet> bullets = new ArrayList<>();
 //    List<Tank> tanks = new ArrayList<>();
 //    List<Explode> explodes = new ArrayList<>();
+    static {
+        INSTANCE.init();
+    }
 
+    Tank myTank;
     private List<GameObject> objects = new ArrayList<>();
     ColliderChain chain = new ColliderChain();
 
-    public GameModel(){
-        int initTankCount = Integer.parseInt((String)PropertyMgr.get("initTankCount"));
+    public static GameModel getInstance() {
+        return INSTANCE;
+    }
+
+    public GameModel() {}
+
+    public void init() {
+        //初始化主战坦克
+        myTank = new Tank(200, 900, Dir.UP, Group.GOOD);
+
+        int initTankCount = Integer.parseInt((String) PropertyMgr.get("initTankCount"));
 
         //初始化敌方坦克
         for (int i = 0; i < initTankCount; i++) {
-            add(new Tank(50 + i * 80, 200, Dir.DOWN, Group.BAD, this));
+            new Tank(50 + i * 80, 200, Dir.DOWN, Group.BAD);
         }
+
+        add(new Wall(150, 150, 200, 50));
+        add(new Wall(700, 150, 200, 50));
+        add(new Wall(300, 500, 50, 200));
+        add(new Wall(700, 500, 50, 200));
     }
 
-    public void add(GameObject go){
+    public void add(GameObject go) {
         this.objects.add(go);
     }
 
-    public void remove(GameObject go){
+    public void remove(GameObject go) {
         this.objects.remove(go);
     }
 
@@ -46,10 +65,10 @@ public class GameModel {
 
         //collision detect
         for (int i = 0; i < objects.size(); i++) {
-            for (int j = i+1; j < objects.size(); j++) {
+            for (int j = i + 1; j < objects.size(); j++) {
                 GameObject o1 = objects.get(i);
                 GameObject o2 = objects.get(j);
-                chain.collide(o1,o2);
+                chain.collide(o1, o2);
             }
         }
 
