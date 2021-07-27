@@ -1,10 +1,12 @@
 package com.weiyuze.tank;
 
+import com.weiyuze.tank.decorator.RectDecorator;
+import com.weiyuze.tank.decorator.TailDecorator;
+
 import java.awt.*;
 import java.util.Random;
 
 public class Tank extends GameObject {
-    private int x, y;
     int oldX, oldY;
     public Dir dir = Dir.DOWN;
     private static final int speed = 2;
@@ -47,6 +49,16 @@ public class Tank extends GameObject {
                 break;
         }
         move();
+    }
+
+    @Override
+    public int getWidth() {
+        return WIDTH;
+    }
+
+    @Override
+    public int getHeight() {
+        return HEIGHT;
     }
 
     private void move() {
@@ -94,7 +106,9 @@ public class Tank extends GameObject {
     public void fire() {
         int bX = this.x + Tank.WIDTH / 2 - Bullet.WIDTH / 2;
         int bY = this.y + Tank.HEIGHT / 2 - Bullet.HEIGHT / 2;
-        new Bullet(bX, bY, this.dir, this.group);
+        GameModel.getInstance().add(new TailDecorator(
+                new RectDecorator(
+                        new Bullet(bX, bY, this.dir, this.group))));
 
         if (this.group == Group.GOOD) new Thread(() -> new Audio("audio/tank_fire.wav").play()).start();
     }

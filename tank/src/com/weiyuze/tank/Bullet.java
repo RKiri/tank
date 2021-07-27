@@ -3,7 +3,6 @@ package com.weiyuze.tank;
 import java.awt.*;
 
 public class Bullet extends GameObject{
-    private int x, y;
     private Dir dir;
     private static final int speed = 6;
     private boolean living = true;
@@ -23,7 +22,7 @@ public class Bullet extends GameObject{
         rect.width = WIDTH;
         rect.height = HEIGHT;
 
-        GameModel.getInstance().add(this);
+        //GameModel.getInstance().add(this);
     }
 
     public void paint(Graphics g) {
@@ -46,6 +45,16 @@ public class Bullet extends GameObject{
                 break;
         }
         move();
+    }
+
+    @Override
+    public int getWidth() {
+        return WIDTH;
+    }
+
+    @Override
+    public int getHeight() {
+        return HEIGHT;
     }
 
     private void move() {
