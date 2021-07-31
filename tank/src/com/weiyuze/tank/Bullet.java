@@ -22,7 +22,7 @@ public class Bullet extends GameObject{
         rect.width = WIDTH;
         rect.height = HEIGHT;
 
-        //GameModel.getInstance().add(this);
+        GameModel.getInstance().add(this);
     }
 
     public void paint(Graphics g) {

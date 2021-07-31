@@ -2,8 +2,14 @@ package com.weiyuze.tank;
 
 import com.weiyuze.tank.decorator.RectDecorator;
 import com.weiyuze.tank.decorator.TailDecorator;
+import com.weiyuze.tank.observer.TankFireEvent;
+import com.weiyuze.tank.observer.TankFireHandler;
+import com.weiyuze.tank.observer.TankFireObserver;
 
 import java.awt.*;
+import java.lang.reflect.Array;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 public class Tank extends GameObject {
@@ -106,11 +112,21 @@ public class Tank extends GameObject {
     public void fire() {
         int bX = this.x + Tank.WIDTH / 2 - Bullet.WIDTH / 2;
         int bY = this.y + Tank.HEIGHT / 2 - Bullet.HEIGHT / 2;
-        GameModel.getInstance().add(new TailDecorator(
-                new RectDecorator(
-                        new Bullet(bX, bY, this.dir, this.group))));
+//        GameModel.getInstance().add(
+//              new TailDecorator(
+//                new RectDecorator(
+//                        new Bullet(bX, bY, this.dir, this.group))));
+        new Bullet(bX, bY, this.dir, this.group);
 
         if (this.group == Group.GOOD) new Thread(() -> new Audio("audio/tank_fire.wav").play()).start();
+    }
+
+    List<TankFireObserver> observers = Arrays.asList(new TankFireHandler());
+    public void handleFireKey() {
+        TankFireEvent event = new TankFireEvent(this);
+        for(TankFireObserver o:observers){
+            o.actionOnFire(event);
+        }
     }
 
     public void stop() {
@@ -169,4 +185,5 @@ public class Tank extends GameObject {
     public Rectangle getRect() {
         return rect;
     }
+
 }
