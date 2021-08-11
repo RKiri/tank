@@ -3,13 +3,14 @@ package com.weiyuze.tank;
 import com.weiyuze.tank.cor.ColliderChain;
 
 import java.awt.*;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class GameModel {
     private static final GameModel INSTANCE = new GameModel();
 
-//    List<Bullet> bullets = new ArrayList<>();
+    //    List<Bullet> bullets = new ArrayList<>();
 //    List<Tank> tanks = new ArrayList<>();
 //    List<Explode> explodes = new ArrayList<>();
     static {
@@ -24,7 +25,8 @@ public class GameModel {
         return INSTANCE;
     }
 
-    public GameModel() {}
+    public GameModel() {
+    }
 
     public void init() {
         //初始化主战坦克
@@ -85,5 +87,40 @@ public class GameModel {
 
     public Tank getMainTank() {
         return myTank;
+    }
+
+    public void save() {
+        File f = new File("f:/Work/tank.data");
+        ObjectOutputStream oos = null;
+        try {
+            oos = new ObjectOutputStream(new FileOutputStream(f));
+            oos.writeObject(myTank);
+            oos.writeObject(objects);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (oos != null) {
+                try {
+                    oos.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public void load() {
+        File f = new File("f:/Work/tank.data");
+        try {
+            ObjectInputStream ois = new ObjectInputStream(new FileInputStream(f));
+            myTank = (Tank) ois.readObject();
+            objects = (List<GameObject>) ois.readObject();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+
     }
 }
