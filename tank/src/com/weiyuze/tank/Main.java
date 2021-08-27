@@ -8,6 +8,8 @@ public class Main {
     public static void main(String[] args) throws InterruptedException {
         TankFrame tf = new TankFrame();
 
+        //测试
+
         /*int initTankCount = Integer.parseInt((String)PropertyMgr.get("initTankCount"));
 
         //初始化敌方坦克
